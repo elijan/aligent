@@ -32,11 +32,11 @@ There was another way to do it, where the object is instantiated  and then manip
      $datetime  = new Aligent\DateTimeConverter('1/02/2015','18/02/2015');
      $datetime->NumberOfWeeks('1/02/2015','18/02/2015')->format('s');
 
-This may be cleaner way by using extending DateTime class, but since the task 4 explicitly said to use third parameters I decided on static methods instead of mili level inhertence.
+This may be cleaner way by using extending DateTime class, but since the task 4 explicitly said to use third parameters I decided on static methods instead of multi-level inference.
 
-Saying that, Inclusion of Timezone is per function, as task was unclear weather these are global sections or local or should it be parsed as parameter.
+Saying that, inclusion of Timezone is per function, as task was unclear weather these are global sections or local or should it be parsed as parameter.
 
-Bottom line Depending on usage teh design pattern should relect that as well.
+Sayifgn that depending on usage , the design pattern should reflect that as well. Didn't want to shoot questions back and forth on what this is used for.
 
 
 Unit Tests
