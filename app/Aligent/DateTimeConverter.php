@@ -55,7 +55,7 @@ class DateTimeConverter  {
 
         $days = $endDate->diff($startDate)->days;
 
-
+        //calculates the periods betwen dates based on the interval (P1D days)
         $period = new \DatePeriod($startDate, new \DateInterval('P1D'), $endDate);
 
         if($period) {
@@ -121,14 +121,16 @@ class DateTimeConverter  {
 
         }
 
+        //calculates the periods based on inteval (7 days)
+
         $period = new \DatePeriod($startDate, new \DateInterval('P7D'), $endDate);
 
-
+        //i there is aormt, parse the period (number o weeks) as days
         if($format){
             return self::formatDays(iterator_count($period) * 7, $format);
         }
 
-
+        //otherwise return count of weeks
         return iterator_count($period);
 
     }
