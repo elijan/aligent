@@ -13,26 +13,31 @@ class DateTimeConverter  {
     const DATE_FORMAT = 'd/m/Y';
 
 
+    const TIMEZONE_DATE1 = 'Australia/Adelaide';
+    const TIMEZONE_DATE2 = 'Australia/Adelaide';
+    
+
     /**
      * @param $date1
      * @param $date2
-     * @param null $format
+     * @param null $output_format
      *
      * @return int
      *
      */
-    public static function getNumberOfDays($date1, $date2,  $format = null){
+    public static function getNumberOfDays($date1, $date2,  $output_format = null){
 
         self::checkDateFormat($date1, $date2);
 
 
-        $startDate = \DateTime::createFromFormat(self::DATE_FORMAT,$date1, new \DateTimeZone('Australia/Adelaide'));
-        $endDate = \DateTime::createFromFormat(self::DATE_FORMAT,$date2, new \DateTimeZone('Australia/Adelaide'));
+        $startDate = self::getDateTime($date1, new \DateTimeZone(self::TIMEZONE_DATE1));
+        $endDate = self::getDateTime($date2, new \DateTimeZone(self::TIMEZONE_DATE2));
+
 
 
         $days = $endDate->diff($startDate)->days;
 
-        return self::formatDays($days, $format);
+        return self::formatDays($days, $output_format);
 
 
 
@@ -41,17 +46,19 @@ class DateTimeConverter  {
     /**
      * @param $date1
      * @param $date2
-     * @param String $format
+     * @param String $output_format
      * @return integer
      *
      * Returns Number of Working Days by calculating the intervals
      */
-    public static function getNumberOfWeekdays($date1, $date2,  $format = null){
+    public static function getNumberOfWeekdays($date1, $date2,  $output_format = null){
 
         self::checkDateFormat($date1, $date2);
 
-        $startDate = \DateTime::createFromFormat(self::DATE_FORMAT,$date1, new \DateTimeZone('Australia/Adelaide'));
-        $endDate = \DateTime::createFromFormat(self::DATE_FORMAT,$date2, new \DateTimeZone('Australia/Adelaide'));
+        $startDate = self::getDateTime($date1, new \DateTimeZone(self::TIMEZONE_DATE1));
+        $endDate = self::getDateTime($date2, new \DateTimeZone(self::TIMEZONE_DATE2));
+
+
 
         $days = $endDate->diff($startDate)->days;
 
@@ -70,7 +77,7 @@ class DateTimeConverter  {
                 }
             }
 
-            return self::formatDays($days, $format);
+            return self::formatDays($days, $output_format);
         }
 
 
@@ -82,15 +89,15 @@ class DateTimeConverter  {
     /**
      * @param $date1
      * @param $date2
-     * @param null $format
+     * @param null $output_format
      * @return int
      *
      * Retunrn number of weeks for given date range
      */
-    public static function getNumberOfWeeks($date1, $date2, $format = null){
+    public static function getNumberOfWeeks($date1, $date2, $output_format = null){
 
-        $startDate = \DateTime::createFromFormat(self::DATE_FORMAT,$date1, new \DateTimeZone('Australia/Adelaide'));
-        $endDate = \DateTime::createFromFormat(self::DATE_FORMAT,$date2, new \DateTimeZone('Australia/Adelaide'));
+        $startDate = self::getDateTime($date1, new \DateTimeZone(self::TIMEZONE_DATE1));
+        $endDate = self::getDateTime($date2, new \DateTimeZone(self::TIMEZONE_DATE2));
 
         //check the start date number in teh week
         // fromat 1 to 7 = MOn to Sun
@@ -126,8 +133,8 @@ class DateTimeConverter  {
         $period = new \DatePeriod($startDate, new \DateInterval('P7D'), $endDate);
 
         //i there is aormt, parse the period (number o weeks) as days
-        if($format){
-            return self::formatDays(iterator_count($period) * 7, $format);
+        if($output_format){
+            return self::formatDays(iterator_count($period) * 7, $output_format);
         }
 
         //otherwise return count of weeks
@@ -138,18 +145,39 @@ class DateTimeConverter  {
 
     /**
      *
+     * We put date tiem creation  in separe function
+     * so that if modifcaiton is needed we chnage only this functiuon
+     *
+     * @param $date
+     * @param bool $timezone
+     * @return \DateTime
+     */
+    private function getDateTime($date, $timezone= false){
+
+        if($timezone){
+
+            return \DateTime::createFromFormat(self::DATE_FORMAT,$date, $timezone);
+        }
+
+        return \DateTime::createFromFormat(self::DATE_FORMAT,$date);
+
+    }
+
+
+    /**
+     *
      * @param $days
-     * @param $format
+     * @param $output_format
      * @return mixed
      *
      * Formats Days in fomrta specied in inoput
      */
 
-    private static function formatDays($days, $format){
+    private static function formatDays($days, $output_format){
 
         $output = $days;
 
-        switch($format){
+        switch($output_format){
 
             case self::SECONDS:
 
