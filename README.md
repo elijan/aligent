@@ -19,9 +19,13 @@ Installation
 
     composer install
 
+Usage
+---------------
+    http://localhost/app/index.php
+
 Notes
 -------------------
-The reason I used static methods it is because function like this onr are usually available on the global scope and therefore should be stateless.
+The reason I used static methods it is because function like this  are usually available on the global scope and therefore should be stateless.
 So that there is clear understanding what following does:
 
       Aligent\DateTimeConverter::getNumberOfDays('1/02/2010','1/02/2015')
@@ -36,7 +40,7 @@ This may be cleaner way by using extending DateTime class, but since the task 4 
 
 Saying that, inclusion of Timezone is per function, as task was unclear weather these are global sections or local or should it be parsed as parameter.
 
-Sayifgn that depending on usage , the design pattern should reflect that as well. Didn't want to shoot questions back and forth on what this is used for.
+Saying that depending on usage , the design pattern should reflect that as well. Didn't want to shoot questions back and forth on what this is used for.
 
 
 Unit Tests
