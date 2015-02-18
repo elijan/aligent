@@ -15,13 +15,15 @@ Description
 Installation
 ---------------
 
+Needed for php unit, otherwise ignore
+
     git clone https://guithub.com/elijan/aligent.git
 
     composer install
 
 Usage
 ---------------
-    http://localhost/app/index.php
+    > php app/index.php
 
 Notes
 -------------------
@@ -47,4 +49,4 @@ Unit Tests
 ----------------------
 Run local phpunit that comes with composer
 
-    >wrokinddir# vendor/bin/phpunit
+    > vendor/bin/phpunit
