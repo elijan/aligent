@@ -19,7 +19,7 @@ Needed for php unit, otherwise ignore
 
     git clone https://guithub.com/elijan/aligent.git
 
-    composer install
+    composer install -dev
 
 Usage
 ---------------
