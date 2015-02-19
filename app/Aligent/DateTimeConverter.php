@@ -30,8 +30,8 @@ class DateTimeConverter  {
         self::checkDateFormat($date1, $date2);
 
 
-        $startDate = self::getDateTime($date1, new \DateTimeZone(self::TIMEZONE_DATE1));
-        $endDate = self::getDateTime($date2, new \DateTimeZone(self::TIMEZONE_DATE2));
+        $startDate = self::getDateTime($date1, self::TIMEZONE_DATE1);
+        $endDate = self::getDateTime($date2, self::TIMEZONE_DATE2);
 
 
 
@@ -55,8 +55,8 @@ class DateTimeConverter  {
 
         self::checkDateFormat($date1, $date2);
 
-        $startDate = self::getDateTime($date1, new \DateTimeZone(self::TIMEZONE_DATE1));
-        $endDate = self::getDateTime($date2, new \DateTimeZone(self::TIMEZONE_DATE2));
+        $startDate = self::getDateTime($date1, self::TIMEZONE_DATE1);
+        $endDate = self::getDateTime($date2, self::TIMEZONE_DATE2);
 
 
 
@@ -96,8 +96,8 @@ class DateTimeConverter  {
      */
     public static function getNumberOfWeeks($date1, $date2, $output_format = null){
 
-        $startDate = self::getDateTime($date1, new \DateTimeZone(self::TIMEZONE_DATE1));
-        $endDate = self::getDateTime($date2, new \DateTimeZone(self::TIMEZONE_DATE2));
+        $startDate = static::getDateTime($date1, self::TIMEZONE_DATE1);
+        $endDate = self::getDateTime($date2, self::TIMEZONE_DATE2);
 
         //check the start date number in teh week
         // fromat 1 to 7 = MOn to Sun
@@ -152,15 +152,30 @@ class DateTimeConverter  {
      * @param bool $timezone
      * @return \DateTime
      */
-    private function getDateTime($date, $timezone= false){
+    private static function getDateTime($date, $timezone= false){
+
 
         if($timezone){
+            self::isValidTimezoneId($timezone);
 
-            return \DateTime::createFromFormat(self::DATE_FORMAT,$date, $timezone);
+            return \DateTime::createFromFormat(self::DATE_FORMAT,$date,  new \DateTimeZone($timezone));
         }
 
         return \DateTime::createFromFormat(self::DATE_FORMAT,$date);
 
+    }
+
+
+
+    private static  function isValidTimezoneId($timezoneId) {
+        $zoneList = timezone_identifiers_list(); // list of (all) valid timezones
+
+        if(!in_array($timezoneId, $zoneList)){
+
+            throw new \Exception('Invalid Timezone');
+
+
+        }
     }
 
 
