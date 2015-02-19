@@ -195,33 +195,23 @@ class DateTimeConverter  {
         switch($output_format){
 
             case self::SECONDS:
-
                 $output =  $days * 86400;
-
-                break;
+              break;
 
             case self::MINUTES:
 
                 $output =  $days * 3600;
-
-                break;
-
+            break;
             case self::HOURS:
 
                 $output =  $days * 24;
-
-                break;
+            break;
 
             case self::YEARS:
-
                 $output =  floor($days/365);
-
-
              break;
 
-
         }
-
 
         return $output;
 
